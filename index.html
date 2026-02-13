@@ -8,7 +8,6 @@
     :root{
       --bg1:#fff1f6;
       --bg2:#f7f7ff;
-      --card:#ffffffcc;
       --ink:#1f1f29;
       --muted:#5c5c72;
       --pink:#ff3b8d;
@@ -49,7 +48,6 @@
       bottom:-40px;
       font-size:18px;
       opacity:.45;
-      filter: blur(.1px);
       animation: floatUp linear infinite;
       transform: translateX(0) rotate(0deg);
       text-shadow: 0 8px 22px rgba(255,59,141,.25);
@@ -247,10 +245,6 @@
       flex-wrap:wrap;
       margin-top: 10px;
     }
-    .musicNote{
-      font-size: 12px;
-      color: var(--muted);
-    }
 
     .grid{
       display:grid;
@@ -363,39 +357,6 @@
       font-weight: 800;
     }
 
-    .unlock{
-      margin-top: 16px;
-      display:none;
-      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.70));
-      border: 1px solid rgba(255,255,255,.78);
-      border-radius: calc(var(--r) + 10px);
-      box-shadow: var(--shadow);
-      padding: 18px;
-      position:relative;
-      overflow:hidden;
-    }
-    .unlock:before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background:
-        radial-gradient(360px 220px at 20% 10%, rgba(255,59,141,.18), transparent 70%),
-        radial-gradient(360px 220px at 85% 30%, rgba(122,92,255,.16), transparent 70%);
-      pointer-events:none;
-    }
-    .unlock > *{position:relative}
-
-    .poem{
-      white-space:pre-wrap;
-      font-size: 15px;
-      line-height:1.75;
-      background: rgba(255,255,255,.82);
-      border: 1px solid rgba(31,31,41,.08);
-      border-radius: 16px;
-      padding: 14px;
-      margin-top: 10px;
-    }
-
     .footer{
       margin-top: 18px;
       color: rgba(92,92,114,.9);
@@ -421,6 +382,8 @@
       pointer-events:none;
       transition: .25s ease;
       z-index: 50;
+      max-width: min(560px, calc(100vw - 24px));
+      text-align:center;
     }
     .toast.show{ opacity: 1; }
 
@@ -435,7 +398,6 @@
 </head>
 
 <body>
-  <!-- floating hearts -->
   <div class="hearts" aria-hidden="true" id="hearts"></div>
   <canvas id="confetti" aria-hidden="true"></canvas>
 
@@ -455,12 +417,11 @@
 
       <div class="musicRow">
         <button id="musicBtn" class="ghost" type="button">▶︎ Play music</button>
-        <span class="musicNote">A soft romantic piano vibe (closest safe vibe to Nuvole Bianche without embedding copyrighted audio).</span>
       </div>
 
       <div class="codebar" aria-label="Code progress">
         <div class="codebarTop">
-          <div class="pill">🔒 5 locks • 1 poem</div>
+          <div class="pill">🔒 5 locks</div>
           <div class="progress"><span id="progressText">0/5 unlocked</span></div>
         </div>
 
@@ -501,7 +462,6 @@
 
     <section class="grid" aria-label="Puzzles">
 
-      <!-- Puzzle 1 -->
       <article class="card">
         <h2>🔐 Puzzle 1 — Memory Lock</h2>
         <p class="txt">Solve the three memories. Take the first letter of each answer, in order.</p>
@@ -510,7 +470,7 @@
           <p class="miniTitle">Memory 1</p>
           <ul class="lines">
             <li>Where you wore the shirt I still think about.</li>
-            <li>The place you made me beg.</li>
+            <li>Where I made a very polite request.</li>
             <li>Talking with friends but could only think of you.</li>
           </ul>
         </div>
@@ -534,13 +494,12 @@
         </div>
       </article>
 
-      <!-- Puzzle 2 -->
       <article class="card">
         <h2>🔐 Puzzle 2 — You Already Heard This One</h2>
         <p class="txt">
-          You already heard this one. Go back to these three audio messages.
-          Each clue gives you a <strong>timestamp (in seconds)</strong>. Jump to that second, find the <strong>word</strong> spoken at that moment,
-          then take the <strong>first letter</strong> of that word. Combine the three letters to get your code chunk.
+          Go back to these three audio messages. Each clue gives you a <strong>timestamp (in seconds)</strong>.
+          Jump to that second, find the <strong>word</strong> spoken at that moment, then take the <strong>first letter</strong> of that word.
+          Combine the three letters to get your code chunk.
         </p>
         <ul class="lines">
           <li>Saturday 2/7 — 10:54 PM</li>
@@ -554,7 +513,7 @@
         </div>
         <div class="mini">
           <p class="miniTitle">Audio 2 (timestamp clue)</p>
-          <p class="txt" style="margin:0">The number of hours in half a day… plus one.</p>
+          <p class="txt" style="margin:0">The number of hours in half a day… plus one (because you’re my number 1).</p>
         </div>
         <div class="mini">
           <p class="miniTitle">Audio 3 (timestamp clue)</p>
@@ -562,7 +521,6 @@
         </div>
       </article>
 
-      <!-- Puzzle 3 -->
       <article class="card">
         <h2>🔐 Puzzle 3 — Wordle</h2>
         <p class="txt">Guess the 5-letter word. Green = right letter, right place. Yellow = right letter, wrong place. Gray = not in the word. When you solve it, take the last three letters for your code chunk.</p>
@@ -585,7 +543,6 @@
         </div>
       </article>
 
-      <!-- Puzzle 4 -->
       <article class="card">
         <h2>🔐 Puzzle 4 — Follow the Compass</h2>
         <p class="txt">
@@ -627,7 +584,6 @@
         </div>
       </article>
 
-      <!-- Puzzle 5 -->
       <article class="card">
         <h2>🔐 Puzzle 5 — Logic Trio</h2>
         <p class="txt">
@@ -658,17 +614,6 @@
 
     </section>
 
-    <!-- Unlock -->
-    <section class="unlock" id="unlockSection" aria-label="Unlocked poem">
-      <h2>💌 Unlocked</h2>
-      <p class="txt">You did it. Here’s the final surprise.</p>
-      <div class="poem" id="poemBox">
-PASTE YOUR POEM HERE TOMORROW 💘
-
-(You can edit this text directly in GitHub.)
-      </div>
-    </section>
-
     <div class="footer">
       <span>Made with love 💘</span>
       <span>•</span>
@@ -679,16 +624,8 @@ PASTE YOUR POEM HERE TOMORROW 💘
   <div class="toast" id="toast">Copied!</div>
 
   <script>
-    // ===================== EDIT CODES HERE =====================
-    const ANSWERS = {
-      c1: "KPN",
-      c2: "KHE",
-      c3: "BBY",
-      c4: "ILG",
-      c5: "NFT"
-    };
+    const ANSWERS = { c1:"KPN", c2:"KHE", c3:"BBY", c4:"ILG", c5:"NFT" };
 
-    // ===================== Floating hearts =====================
     (function makeHearts(){
       const container = document.getElementById("hearts");
       const hearts = ["💗","💖","💘","💞","💕","💝"];
@@ -714,7 +651,6 @@ PASTE YOUR POEM HERE TOMORROW 💘
       }
     })();
 
-    // ===================== Code input validation =====================
     const inputs = ["c1","c2","c3","c4","c5"].map(id => document.getElementById(id));
     const statuses = {
       c1: document.getElementById("s1"),
@@ -724,11 +660,8 @@ PASTE YOUR POEM HERE TOMORROW 💘
       c5: document.getElementById("s5"),
     };
     const progressText = document.getElementById("progressText");
-    const unlockSection = document.getElementById("unlockSection");
 
-    function normalize(v){
-      return (v || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0,3);
-    }
+    function normalize(v){ return (v||"").toUpperCase().replace(/[^A-Z]/g,"").slice(0,3); }
 
     function setStatus(id, state){
       const input = document.getElementById(id);
@@ -736,16 +669,10 @@ PASTE YOUR POEM HERE TOMORROW 💘
       input.classList.remove("ok","bad");
       st.classList.remove("ok","bad");
       if(state === "ok"){
-        input.classList.add("ok");
-        st.classList.add("ok");
-        st.textContent = "✓";
+        input.classList.add("ok"); st.classList.add("ok"); st.textContent = "✓";
       } else if(state === "bad"){
-        input.classList.add("bad");
-        st.classList.add("bad");
-        st.textContent = "✕";
-      } else {
-        st.textContent = "•";
-      }
+        input.classList.add("bad"); st.classList.add("bad"); st.textContent = "✕";
+      } else { st.textContent = "•"; }
     }
 
     let unlockedOnce = false;
@@ -756,54 +683,36 @@ PASTE YOUR POEM HERE TOMORROW 💘
         const val = normalize(input.value);
         input.value = val;
         if(val.length === 3){
-          if(val === ANSWERS[id]){
-            setStatus(id,"ok");
-            correct++;
-          } else {
-            setStatus(id,"bad");
-          }
-        } else {
-          setStatus(id,null);
-        }
+          if(val === ANSWERS[id]){ setStatus(id,"ok"); correct++; }
+          else { setStatus(id,"bad"); }
+        } else { setStatus(id,null); }
       }
       progressText.textContent = `${correct}/5 unlocked`;
-      const all = (correct === 5);
-      unlockSection.style.display = all ? "block" : "none";
-      if(all && !unlockedOnce){
+      if(correct === 5 && !unlockedOnce){
         unlockedOnce = true;
         confettiBurst();
-        showToast("Unlocked! 💘");
+        showToast("Yay you did it!! My hubby is so smart. Hope you had fun <3");
       }
     }
+    inputs.forEach(inp => { inp.addEventListener("input", recompute); inp.addEventListener("blur", recompute); });
 
-    inputs.forEach(inp => {
-      inp.addEventListener("input", recompute);
-      inp.addEventListener("blur", recompute);
-    });
-
-    // ===================== Copy full code =====================
     const toast = document.getElementById("toast");
     function showToast(msg="Copied!"){
       toast.textContent = msg;
       toast.classList.add("show");
-      setTimeout(()=>toast.classList.remove("show"), 1300);
+      setTimeout(()=>toast.classList.remove("show"), 1800);
     }
 
     document.getElementById("copyFinal").addEventListener("click", async () => {
       const full = `${normalize(c1.value)}-${normalize(c2.value)}-${normalize(c3.value)}-${normalize(c4.value)}-${normalize(c5.value)}`;
-      try{
-        await navigator.clipboard.writeText(full);
-        showToast("Copied full code!");
-      }catch(e){
-        showToast("Copy not supported here");
-      }
+      try{ await navigator.clipboard.writeText(full); showToast("Copied full code!"); }
+      catch(e){ showToast("Copy not supported here"); }
     });
 
-    // ===================== Real Wordle (HUBBY) =====================
+    // Wordle
     const WORD = "HUBBY";
     const maxTries = 5;
-    let tries = 0;
-    let solved = false;
+    let tries = 0, solved = false;
 
     const boardEl = document.getElementById("wordleBoard");
     const guessInput = document.getElementById("wordleGuess");
@@ -813,61 +722,42 @@ PASTE YOUR POEM HERE TOMORROW 💘
     const result = document.getElementById("wordleResult");
     const code3 = document.getElementById("c3");
 
-    // Build empty board
     const tiles = [];
     for(let r=0;r<maxTries;r++){
-      const row = document.createElement("div");
-      row.className = "wRow";
+      const row = document.createElement("div"); row.className = "wRow";
       const rowTiles = [];
       for(let c=0;c<5;c++){
-        const t = document.createElement("div");
-        t.className = "tile";
-        t.textContent = "";
-        row.appendChild(t);
-        rowTiles.push(t);
+        const t = document.createElement("div"); t.className = "tile"; t.textContent = "";
+        row.appendChild(t); rowTiles.push(t);
       }
       boardEl.appendChild(row);
       tiles.push(rowTiles);
     }
 
     function evaluateGuess(guess, answer){
-      // returns array of "green"|"yellow"|"gray"
       const res = Array(5).fill("gray");
       const a = answer.split("");
       const g = guess.split("");
-
-      // greens
       for(let i=0;i<5;i++){
-        if(g[i] === a[i]){
-          res[i] = "green";
-          a[i] = null; // used
-          g[i] = null;
-        }
+        if(g[i] === a[i]){ res[i] = "green"; a[i]=null; g[i]=null; }
       }
-      // yellows
       for(let i=0;i<5;i++){
         if(g[i] === null) continue;
         const idx = a.indexOf(g[i]);
-        if(idx !== -1){
-          res[i] = "yellow";
-          a[idx] = null;
-        }
+        if(idx !== -1){ res[i] = "yellow"; a[idx]=null; }
       }
       return res;
     }
-
     function renderRow(rowIndex, guess, colors){
       for(let i=0;i<5;i++){
         const t = tiles[rowIndex][i];
         t.textContent = guess[i] || "";
         t.classList.remove("green","yellow","gray","pop");
         t.classList.add(colors[i] || "");
-        // tiny pop animation
         requestAnimationFrame(()=>t.classList.add("pop"));
         setTimeout(()=>t.classList.remove("pop"), 140);
       }
     }
-
     function finishWordle(){
       code3.value = "BBY";
       recompute();
@@ -875,14 +765,11 @@ PASTE YOUR POEM HERE TOMORROW 💘
       guessInput.disabled = true;
       submitBtn.disabled = true;
     }
-
-    function setWordleHint(show){
-      hintPop.style.display = show ? "block" : "none";
-    }
+    function setWordleHint(show){ hintPop.style.display = show ? "block" : "none"; }
 
     submitBtn.addEventListener("click", () => {
       if(solved) return;
-      const guess = (guessInput.value || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0,5);
+      const guess = (guessInput.value||"").toUpperCase().replace(/[^A-Z]/g,"").slice(0,5);
       guessInput.value = guess;
       if(guess.length !== 5) return;
 
@@ -898,24 +785,13 @@ PASTE YOUR POEM HERE TOMORROW 💘
         finishWordle();
         return;
       }
-
-      if(tries >= 4){
-        setWordleHint(true); // show your hint after 4 wrong attempts
-      }
-
-      if(tries >= maxTries){
-        result.textContent = "Out of tries — read the hint and you’ll get it.";
-      } else {
-        result.textContent = "Not quite — try again.";
-      }
+      if(tries >= 4) setWordleHint(true);
+      result.textContent = (tries >= maxTries) ? "Out of tries — read the hint and you’ll get it." : "Not quite — try again.";
       guessInput.select();
     });
+    guessInput.addEventListener("keydown", (e)=>{ if(e.key==="Enter") submitBtn.click(); });
 
-    guessInput.addEventListener("keydown", (e) => {
-      if(e.key === "Enter") submitBtn.click();
-    });
-
-    // ===================== Confetti (no libs) =====================
+    // Confetti
     const canvas = document.getElementById("confetti");
     const ctx = canvas.getContext("2d");
     let confetti = [];
@@ -954,19 +830,14 @@ PASTE YOUR POEM HERE TOMORROW 💘
       ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
 
       confetti.forEach(p=>{
-        p.x += p.vx;
-        p.y += p.vy;
-        p.rot += p.spin;
-        p.vx *= 0.995;
-        p.vy *= 0.99;
-        p.life -= 1;
+        p.x += p.vx; p.y += p.vy; p.rot += p.spin;
+        p.vx *= 0.995; p.vy *= 0.99; p.life -= 1;
 
         ctx.save();
         ctx.globalAlpha = p.a;
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rot);
 
-        // draw a tiny heart-ish confetti shape (cute)
         ctx.beginPath();
         const s = p.r;
         ctx.moveTo(0, s/2);
@@ -975,7 +846,6 @@ PASTE YOUR POEM HERE TOMORROW 💘
         ctx.bezierCurveTo(0, s*1.2, s, s, s, s/2);
         ctx.bezierCurveTo(s, 0, 0, 0, 0, s/2);
 
-        // gradient-ish fill using current alpha + random tint
         const t = (p.x + p.y) % 3;
         ctx.fillStyle = t < 1 ? "rgba(255,59,141,.95)" : (t < 2 ? "rgba(255,95,160,.95)" : "rgba(122,92,255,.95)");
         ctx.fill();
@@ -992,19 +862,14 @@ PASTE YOUR POEM HERE TOMORROW 💘
       }
     }
 
-    // ===================== Music (royalty-free vibe) =====================
-    // NOTE: Browsers block autoplay unless the user clicks.
-    // We generate a soft “piano-ish” tone sequence via WebAudio (no external file).
+    // Music (WebAudio gentle piano-ish loop)
     let audioCtx = null;
     let musicOn = false;
     let musicTimer = null;
 
     function ensureAudio(){
-      if(!audioCtx){
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
+      if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
-
     function playNote(freq, when, dur, gain=0.10){
       const o = audioCtx.createOscillator();
       const g = audioCtx.createGain();
@@ -1013,27 +878,22 @@ PASTE YOUR POEM HERE TOMORROW 💘
       g.gain.setValueAtTime(0.0001, when);
       g.gain.exponentialRampToValueAtTime(gain, when + 0.02);
       g.gain.exponentialRampToValueAtTime(0.0001, when + dur);
-      o.connect(g);
-      g.connect(audioCtx.destination);
-      o.start(when);
-      o.stop(when + dur + 0.02);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(when); o.stop(when + dur + 0.02);
     }
-
-    // simple romantic arpeggio loop (very gentle)
     function startMusic(){
       ensureAudio();
       if(audioCtx.state === "suspended") audioCtx.resume();
       musicOn = true;
       document.getElementById("musicBtn").textContent = "⏸ Pause music";
 
-      const base = 220; // A3-ish
-      const scale = [0, 3, 7, 10, 12, 15, 19]; // minor-ish (romantic)
+      const base = 220;
+      const scale = [0, 3, 7, 10, 12, 15, 19];
       let step = 0;
 
       musicTimer = setInterval(()=>{
         if(!musicOn) return;
         const now = audioCtx.currentTime;
-        // chord tones
         const s1 = scale[step % scale.length];
         const s2 = scale[(step+2) % scale.length];
         const s3 = scale[(step+4) % scale.length];
@@ -1042,33 +902,23 @@ PASTE YOUR POEM HERE TOMORROW 💘
         playNote(base * Math.pow(2, s2/12), now + 0.08, 0.55, 0.05);
         playNote(base * Math.pow(2, s3/12), now + 0.16, 0.65, 0.045);
 
-        // occasional higher sparkle
         if(step % 6 === 0){
           playNote(base * 2 * Math.pow(2, scale[(step+1)%scale.length]/12), now + 0.20, 0.35, 0.03);
         }
-
         step++;
       }, 650);
     }
-
     function stopMusic(){
       musicOn = false;
       document.getElementById("musicBtn").textContent = "▶︎ Play music";
       if(musicTimer) clearInterval(musicTimer);
       musicTimer = null;
     }
-
     document.getElementById("musicBtn").addEventListener("click", ()=>{
-      if(!musicOn){
-        startMusic();
-        showToast("Music on 🎶");
-      } else {
-        stopMusic();
-        showToast("Music paused");
-      }
+      if(!musicOn){ startMusic(); showToast("Music on 🎶"); }
+      else { stopMusic(); showToast("Music paused"); }
     });
 
-    // initial compute
     recompute();
   </script>
 </body>
