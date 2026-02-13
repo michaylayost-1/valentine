@@ -9,7 +9,6 @@
       --bg1:#fff1f6;
       --bg2:#f7f7ff;
       --card:#ffffffcc;
-      --stroke:#ffffff;
       --ink:#1f1f29;
       --muted:#5c5c72;
       --pink:#ff3b8d;
@@ -34,16 +33,44 @@
         radial-gradient(700px 500px at 60% 90%, rgba(255,95,160,.18), transparent 55%),
         linear-gradient(180deg, var(--bg1), var(--bg2));
       min-height:100vh;
+      overflow-x:hidden;
     }
+
+    /* Floating hearts */
+    .hearts{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:0;
+    }
+    .heart{
+      position:absolute;
+      bottom:-40px;
+      font-size:18px;
+      opacity:.45;
+      filter: blur(.1px);
+      animation: floatUp linear infinite;
+      transform: translateX(0) rotate(0deg);
+      text-shadow: 0 8px 22px rgba(255,59,141,.25);
+    }
+    @keyframes floatUp{
+      0% { transform: translate(var(--x), 0) rotate(var(--r)); opacity: 0; }
+      10%{ opacity:.45; }
+      100%{ transform: translate(calc(var(--x) + var(--drift)), -120vh) rotate(calc(var(--r) + 120deg)); opacity: 0; }
+    }
+
     .wrap{
+      position:relative;
+      z-index:1;
       max-width: 980px;
       margin: 0 auto;
-      padding: 28px 18px 60px;
+      padding: 28px 18px 64px;
     }
     .hero{
-      background: linear-gradient(135deg, rgba(255,255,255,.78), rgba(255,255,255,.55));
-      border: 1px solid rgba(255,255,255,.65);
-      border-radius: calc(var(--r) + 6px);
+      background: linear-gradient(135deg, rgba(255,255,255,.82), rgba(255,255,255,.58));
+      border: 1px solid rgba(255,255,255,.70);
+      border-radius: calc(var(--r) + 10px);
       box-shadow: var(--shadow);
       padding: 22px 22px 18px;
       position:relative;
@@ -61,25 +88,49 @@
       filter: blur(1px);
     }
     .hero > *{position:relative}
+
     h1{
       margin:0 0 6px;
       font-size: clamp(26px, 3.2vw, 38px);
       letter-spacing: -0.02em;
       line-height:1.1;
     }
+    .loveLine{
+      margin: 0 0 10px;
+      font-weight: 650;
+      color: rgba(255,59,141,.95);
+      letter-spacing: -.01em;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .loveLine .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,59,141,.10);
+      border: 1px solid rgba(255,59,141,.14);
+      color: rgba(255,59,141,.98);
+      font-size: 13px;
+      user-select:none;
+    }
     .sub{
       margin:0;
       color: var(--muted);
       font-size: 15px;
-      line-height:1.5;
-      max-width: 70ch;
+      line-height:1.55;
+      max-width: 78ch;
     }
+
     .codebar{
       margin-top: 16px;
       padding: 14px;
-      background: rgba(255,255,255,.75);
-      border: 1px solid rgba(255,255,255,.7);
-      border-radius: 16px;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(255,255,255,.72);
+      border-radius: 18px;
       box-shadow: var(--shadow2);
     }
     .codebarTop{
@@ -98,8 +149,8 @@
       color: var(--muted);
       padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(255,59,141,.10);
-      border: 1px solid rgba(255,59,141,.16);
+      background: rgba(122,92,255,.10);
+      border: 1px solid rgba(122,92,255,.14);
       user-select:none;
     }
     .progress{
@@ -117,7 +168,7 @@
       display:flex;
       align-items:center;
       gap:8px;
-      background: rgba(255,255,255,.9);
+      background: rgba(255,255,255,.92);
       border: 1px solid rgba(31,31,41,.10);
       border-radius: 14px;
       padding: 10px 10px;
@@ -156,6 +207,7 @@
     .bad{ border-color: rgba(255,59,59,.40)!important; box-shadow: 0 0 0 6px rgba(255,59,59,.10)!important;}
     .status.ok{ background: rgba(20,184,106,.12); color: var(--good); }
     .status.bad{ background: rgba(255,59,59,.10); color: var(--bad); }
+
     .actions{
       display:flex;
       gap:10px;
@@ -170,7 +222,7 @@
       padding: 10px 14px;
       background: linear-gradient(135deg, var(--pink), var(--purple));
       color: white;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: .01em;
       cursor:pointer;
       box-shadow: 0 10px 20px rgba(122,92,255,.20);
@@ -178,13 +230,24 @@
     }
     button:active{ transform: translateY(1px); }
     .ghost{
-      background: rgba(255,255,255,.9);
+      background: rgba(255,255,255,.92);
       color: var(--ink);
       border: 1px solid rgba(31,31,41,.12);
       box-shadow: none;
-      font-weight: 650;
+      font-weight: 750;
     }
     .tiny{
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .musicRow{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .musicNote{
       font-size: 12px;
       color: var(--muted);
     }
@@ -198,8 +261,8 @@
       .grid{ grid-template-columns: 1fr 1fr; }
     }
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.62));
-      border: 1px solid rgba(255,255,255,.70);
+      background: linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.64));
+      border: 1px solid rgba(255,255,255,.72);
       border-radius: var(--r);
       padding: 18px 18px 16px;
       box-shadow: var(--shadow2);
@@ -216,29 +279,12 @@
       pointer-events:none;
     }
     .card > *{ position:relative; }
-    .kicker{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom: 6px;
-    }
-    .tag{
-      font-family: var(--mono);
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255,59,141,.10);
-      border: 1px solid rgba(255,59,141,.14);
-      color: rgba(255,59,141,.95);
-      white-space:nowrap;
-    }
     h2{
       margin: 4px 0 10px;
       font-size: 18px;
       letter-spacing: -0.01em;
     }
-    .txt{ color: var(--muted); line-height:1.55; font-size: 14px; }
+    .txt{ color: var(--muted); line-height:1.6; font-size: 14px; }
     .lines{
       margin: 10px 0 0;
       padding-left: 18px;
@@ -250,30 +296,54 @@
     .mini{
       margin-top: 12px;
       padding: 12px;
-      background: rgba(255,255,255,.75);
+      background: rgba(255,255,255,.78);
       border: 1px solid rgba(31,31,41,.08);
       border-radius: 16px;
     }
     .miniTitle{
-      font-weight: 800;
+      font-weight: 850;
       font-size: 13px;
       margin: 0 0 8px;
       letter-spacing: .01em;
       display:flex; gap:8px; align-items:center;
     }
-    .wordle{
-      margin-top: 10px;
+
+    /* Real wordle */
+    .wordleWrap{ margin-top: 10px; }
+    .wordleBoard{
       display:grid;
-      gap: 10px;
+      gap: 8px;
+      margin-top: 10px;
     }
-    .row{
+    .wRow{ display:flex; gap:8px; }
+    .tile{
+      width: 42px;
+      height: 44px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      font-family: var(--mono);
+      font-weight: 900;
+      letter-spacing: .04em;
+      border: 1px solid rgba(31,31,41,.14);
+      background: rgba(255,255,255,.94);
+      color: rgba(31,31,41,.86);
+      user-select:none;
+      transition: transform .12s ease;
+    }
+    .tile.pop{ transform: scale(1.03); }
+    .tile.gray{ background: rgba(31,31,41,.10); }
+    .tile.yellow{ background: rgba(255,211,77,.55); border-color: rgba(255,211,77,.65); }
+    .tile.green{ background: rgba(20,184,106,.46); border-color: rgba(20,184,106,.60); }
+    .wordleControls{
       display:flex;
-      gap:8px;
+      gap:10px;
       align-items:center;
       flex-wrap:wrap;
+      margin-top: 10px;
     }
-    .wordle input{
-      width: 140px;
+    .wordleControls input{
+      width: 160px;
       padding: 10px 12px;
       border-radius: 12px;
       border: 1px solid rgba(31,31,41,.14);
@@ -282,27 +352,6 @@
       text-transform: uppercase;
       outline:none;
     }
-    .board{
-      display:grid;
-      gap: 8px;
-    }
-    .guessRow{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      font-family: var(--mono);
-      font-size: 13px;
-      color: var(--muted);
-    }
-    .sq{
-      width: 18px; height: 18px;
-      border-radius: 5px;
-      border: 1px solid rgba(31,31,41,.16);
-      display:inline-block;
-    }
-    .b{ background: rgba(31,31,41,.10); }
-    .y{ background: rgba(255,211,77,.45); border-color: rgba(255,211,77,.60); }
-    .g{ background: rgba(20,184,106,.38); border-color: rgba(20,184,106,.55); }
     .hintPop{
       display:none;
       margin-top: 10px;
@@ -311,14 +360,15 @@
       border: 1px solid rgba(255,59,141,.22);
       background: rgba(255,59,141,.10);
       color: rgba(255,59,141,.98);
-      font-weight: 750;
+      font-weight: 800;
     }
+
     .unlock{
       margin-top: 16px;
       display:none;
-      background: linear-gradient(180deg, rgba(255,255,255,.90), rgba(255,255,255,.70));
-      border: 1px solid rgba(255,255,255,.75);
-      border-radius: calc(var(--r) + 6px);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.70));
+      border: 1px solid rgba(255,255,255,.78);
+      border-radius: calc(var(--r) + 10px);
       box-shadow: var(--shadow);
       padding: 18px;
       position:relative;
@@ -334,15 +384,28 @@
       pointer-events:none;
     }
     .unlock > *{position:relative}
+
     .poem{
       white-space:pre-wrap;
       font-size: 15px;
-      line-height:1.7;
-      background: rgba(255,255,255,.78);
+      line-height:1.75;
+      background: rgba(255,255,255,.82);
       border: 1px solid rgba(31,31,41,.08);
       border-radius: 16px;
       padding: 14px;
       margin-top: 10px;
+    }
+
+    .footer{
+      margin-top: 18px;
+      color: rgba(92,92,114,.9);
+      font-size: 12px;
+      text-align:center;
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
     }
     .toast{
       position: fixed;
@@ -357,21 +420,43 @@
       opacity:0;
       pointer-events:none;
       transition: .25s ease;
+      z-index: 50;
     }
     .toast.show{ opacity: 1; }
-    .footer{
-      margin-top: 16px;
-      color: rgba(92,92,114,.9);
-      font-size: 12px;
-      text-align:center;
+
+    /* Confetti canvas */
+    #confetti{
+      position: fixed;
+      inset:0;
+      pointer-events:none;
+      z-index: 40;
     }
   </style>
 </head>
+
 <body>
+  <!-- floating hearts -->
+  <div class="hearts" aria-hidden="true" id="hearts"></div>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
   <div class="wrap">
     <section class="hero">
       <h1>Valentine’s Lockbox 💘</h1>
-      <p class="sub">Solve each puzzle to earn a 3-letter code chunk. As you go, type each chunk into the boxes below. When they’re all correct… your final surprise unlocks.</p>
+
+      <div class="loveLine">
+        <span class="badge">Happy Valentine’s Day my love! 💌</span>
+        <span class="badge">Jorge + Michayla ❤️</span>
+      </div>
+
+      <p class="sub">
+        I made you a virtual escape room to show you my love and appreciation. Hope you enjoy!
+        <br><span class="tiny">Solve each puzzle to earn a 3-letter code chunk. Type each chunk below — it’ll glow green when correct.</span>
+      </p>
+
+      <div class="musicRow">
+        <button id="musicBtn" class="ghost" type="button">▶︎ Play music</button>
+        <span class="musicNote">A soft romantic piano vibe (closest safe vibe to Nuvole Bianche without embedding copyrighted audio).</span>
+      </div>
 
       <div class="codebar" aria-label="Code progress">
         <div class="codebarTop">
@@ -409,7 +494,7 @@
 
         <div class="actions">
           <button class="ghost" id="copyFinal" type="button">Copy full code</button>
-          <span class="tiny">Tip: codes are not case-sensitive.</span>
+          <span class="tiny">Codes are not case-sensitive.</span>
         </div>
       </div>
     </section>
@@ -418,10 +503,7 @@
 
       <!-- Puzzle 1 -->
       <article class="card">
-        <div class="kicker">
-          <h2>🔐 Puzzle 1 — Memory Lock</h2>
-          <span class="tag">CODE → KPN</span>
-        </div>
+        <h2>🔐 Puzzle 1 — Memory Lock</h2>
         <p class="txt">Solve the three memories. Take the first letter of each answer, in order.</p>
 
         <div class="mini">
@@ -454,11 +536,12 @@
 
       <!-- Puzzle 2 -->
       <article class="card">
-        <div class="kicker">
-          <h2>🔐 Puzzle 2 — You Already Heard This One</h2>
-          <span class="tag">CODE → KHE</span>
-        </div>
-        <p class="txt">You already heard this one. Go back to these three audio messages, then jump to the correct second using the clue. Take the first letter of the word spoken at that moment.</p>
+        <h2>🔐 Puzzle 2 — You Already Heard This One</h2>
+        <p class="txt">
+          You already heard this one. Go back to these three audio messages.
+          Each clue gives you a <strong>timestamp (in seconds)</strong>. Jump to that second, find the <strong>word</strong> spoken at that moment,
+          then take the <strong>first letter</strong> of that word. Combine the three letters to get your code chunk.
+        </p>
         <ul class="lines">
           <li>Saturday 2/7 — 10:54 PM</li>
           <li>Sunday 2/8 — 8:47 PM</li>
@@ -466,76 +549,58 @@
         </ul>
 
         <div class="mini">
-          <p class="miniTitle">Audio 1</p>
+          <p class="miniTitle">Audio 1 (timestamp clue)</p>
           <p class="txt" style="margin:0">The number of letters in the city where we first met.</p>
         </div>
         <div class="mini">
-          <p class="miniTitle">Audio 2</p>
-          <p class="txt" style="margin:0">The number of hours in half a day… plus one. (Because you’re the only one for me.)</p>
+          <p class="miniTitle">Audio 2 (timestamp clue)</p>
+          <p class="txt" style="margin:0">The number of hours in half a day… plus one.</p>
         </div>
         <div class="mini">
-          <p class="miniTitle">Audio 3</p>
+          <p class="miniTitle">Audio 3 (timestamp clue)</p>
           <p class="txt" style="margin:0">The age of my brother.</p>
         </div>
       </article>
 
       <!-- Puzzle 3 -->
       <article class="card">
-        <div class="kicker">
-          <h2>🔐 Puzzle 3 — Wordle</h2>
-          <span class="tag">CODE → BBY</span>
-        </div>
-        <p class="txt">Solve the 5-letter word. Then take the last three letters as the code chunk.</p>
+        <h2>🔐 Puzzle 3 — Wordle</h2>
+        <p class="txt">Guess the 5-letter word. Green = right letter, right place. Yellow = right letter, wrong place. Gray = not in the word. When you solve it, take the last three letters for your code chunk.</p>
 
         <div class="mini">
-          <p class="miniTitle">Wordle Board</p>
-          <div class="board" aria-label="Wordle clues">
-            <div class="guessRow">
-              <span>GUESS 1:</span><span style="width:70px">AUDIO</span>
-              <span class="sq b"></span><span class="sq y"></span><span class="sq b"></span><span class="sq b"></span><span class="sq b"></span>
-            </div>
-            <div class="guessRow">
-              <span>GUESS 2:</span><span style="width:70px">HONEY</span>
-              <span class="sq g"></span><span class="sq b"></span><span class="sq b"></span><span class="sq b"></span><span class="sq g"></span>
-            </div>
-            <div class="guessRow">
-              <span>GUESS 3:</span><span style="width:70px">HUMID</span>
-              <span class="sq g"></span><span class="sq g"></span><span class="sq b"></span><span class="sq b"></span><span class="sq b"></span>
-            </div>
-            <div class="guessRow">
-              <span>GUESS 4:</span><span style="width:70px">HURRY</span>
-              <span class="sq g"></span><span class="sq g"></span><span class="sq b"></span><span class="sq b"></span><span class="sq g"></span>
-            </div>
-          </div>
+          <p class="miniTitle">Play</p>
 
-          <div class="wordle">
-            <div class="row">
-              <input id="wordleGuess" maxlength="5" placeholder="TYPE GUESS" autocomplete="off"/>
+          <div class="wordleWrap">
+            <div class="wordleBoard" id="wordleBoard" aria-label="Wordle board"></div>
+
+            <div class="wordleControls">
+              <input id="wordleGuess" maxlength="5" placeholder="TYPE GUESS" autocomplete="off" />
               <button id="wordleSubmit" type="button">Submit</button>
               <span class="tiny" id="wordleTries">0/5 tries</span>
             </div>
+
             <div class="hintPop" id="wordleHint">It’s what you are to me.</div>
-            <div class="tiny" id="wordleResult"></div>
+            <div class="tiny" id="wordleResult" style="margin-top:8px"></div>
           </div>
         </div>
       </article>
 
       <!-- Puzzle 4 -->
       <article class="card">
-        <div class="kicker">
-          <h2>🔐 Puzzle 4 — Follow the Compass</h2>
-          <span class="tag">CODE → ILY</span>
-        </div>
-        <p class="txt">Some answers require direction. Think like a compass. For each selfie, use the riddle to choose North / South / East, then take the letter hidden in that direction.</p>
+        <h2>🔐 Puzzle 4 — Follow the Compass</h2>
+        <p class="txt">
+          Some answers require direction. Think like a compass.
+          For each selfie: use the riddle to choose <strong>North / East / South / West</strong>, then take the letter hidden in that corner.
+        </p>
 
         <ul class="lines">
-          <li>Selfie from <strong>[DATE/TIME 1]</strong></li>
-          <li>Selfie from <strong>[DATE/TIME 2]</strong></li>
-          <li>Selfie from <strong>[DATE/TIME 3]</strong></li>
+          <li>Selfie from Thursday 2/12 — <strong>10:56 PM</strong></li>
+          <li>Selfie from Thursday 2/12 — <strong>10:59 PM</strong></li>
+          <li>Selfie from Thursday 2/12 — <strong>11:02 PM</strong></li>
         </ul>
 
         <div class="mini">
-          <p class="miniTitle">Selfie 1 → NORTH</p>
+          <p class="miniTitle">Selfie 1 (direction riddle)</p>
           <ul class="lines">
             <li>Longer coats, earlier sunsets.</li>
             <li>Maps trust me.</li>
@@ -544,7 +609,7 @@
         </div>
 
         <div class="mini">
-          <p class="miniTitle">Selfie 2 → SOUTH</p>
+          <p class="miniTitle">Selfie 2 (direction riddle)</p>
           <ul class="lines">
             <li>Starting to heat up.</li>
             <li>The direction where latitude gets smaller.</li>
@@ -553,7 +618,7 @@
         </div>
 
         <div class="mini">
-          <p class="miniTitle">Selfie 3 → EAST</p>
+          <p class="miniTitle">Selfie 3 (direction riddle)</p>
           <ul class="lines">
             <li>Go the way time zones advance (your clock jumps forward).</li>
             <li>On my way to see you.</li>
@@ -564,15 +629,14 @@
 
       <!-- Puzzle 5 -->
       <article class="card">
-        <div class="kicker">
-          <h2>🔐 Puzzle 5 — Logic Trio</h2>
-          <span class="tag">CODE → NFT</span>
-        </div>
-        <p class="txt">Solve each riddle, then take the first letter of the number spelled out (e.g., Nine hundred → N).</p>
+        <h2>🔐 Puzzle 5 — Logic Trio</h2>
+        <p class="txt">
+          Solve each riddle. For each answer, write the number as a word, then take the first letter.
+          <span class="tiny">(Example: <strong>Eighty</strong> → <strong>E</strong>)</span>
+        </p>
 
         <div class="mini">
           <p class="miniTitle">1) The weight riddle</p>
-          <p class="txt" style="margin:0 0 8px">Three animals are weighed in pairs:</p>
           <ul class="lines">
             <li>Elephant + 2 crocodiles = 1,200 kg</li>
             <li>2 crocodiles + 4 monkeys = 400 kg</li>
@@ -601,26 +665,56 @@
       <div class="poem" id="poemBox">
 PASTE YOUR POEM HERE TOMORROW 💘
 
-(You can edit this text directly in the HTML file.)
+(You can edit this text directly in GitHub.)
       </div>
     </section>
 
-    <div class="footer">Made with love • Happy Valentine’s Day 💘</div>
+    <div class="footer">
+      <span>Made with love 💘</span>
+      <span>•</span>
+      <span>Jorge + Michayla ❤️</span>
+    </div>
   </div>
 
   <div class="toast" id="toast">Copied!</div>
 
   <script>
-    // ====== EDIT THESE IF YOU CHANGE ANY CODES ======
+    // ===================== EDIT CODES HERE =====================
     const ANSWERS = {
       c1: "KPN",
       c2: "KHE",
       c3: "BBY",
-      c4: "ILY",
+      c4: "ILG",
       c5: "NFT"
     };
 
-    // ====== Code input validation (green/red flash) ======
+    // ===================== Floating hearts =====================
+    (function makeHearts(){
+      const container = document.getElementById("hearts");
+      const hearts = ["💗","💖","💘","💞","💕","💝"];
+      for(let i=0;i<18;i++){
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.textContent = hearts[Math.floor(Math.random()*hearts.length)];
+        const left = Math.random()*100;
+        const dur = 10 + Math.random()*10;
+        const delay = Math.random()*6;
+        const size = 14 + Math.random()*18;
+        const drift = (Math.random()*60 - 30) + "px";
+        const x = (Math.random()*40 - 20) + "px";
+        const rot = (Math.random()*80 - 40) + "deg";
+        h.style.left = left + "vw";
+        h.style.fontSize = size + "px";
+        h.style.animationDuration = dur + "s";
+        h.style.animationDelay = (-delay) + "s";
+        h.style.setProperty("--drift", drift);
+        h.style.setProperty("--x", x);
+        h.style.setProperty("--r", rot);
+        container.appendChild(h);
+      }
+    })();
+
+    // ===================== Code input validation =====================
     const inputs = ["c1","c2","c3","c4","c5"].map(id => document.getElementById(id));
     const statuses = {
       c1: document.getElementById("s1"),
@@ -654,6 +748,7 @@ PASTE YOUR POEM HERE TOMORROW 💘
       }
     }
 
+    let unlockedOnce = false;
     function recompute(){
       let correct = 0;
       for(const id of Object.keys(ANSWERS)){
@@ -672,7 +767,13 @@ PASTE YOUR POEM HERE TOMORROW 💘
         }
       }
       progressText.textContent = `${correct}/5 unlocked`;
-      unlockSection.style.display = (correct === 5) ? "block" : "none";
+      const all = (correct === 5);
+      unlockSection.style.display = all ? "block" : "none";
+      if(all && !unlockedOnce){
+        unlockedOnce = true;
+        confettiBurst();
+        showToast("Unlocked! 💘");
+      }
     }
 
     inputs.forEach(inp => {
@@ -680,12 +781,12 @@ PASTE YOUR POEM HERE TOMORROW 💘
       inp.addEventListener("blur", recompute);
     });
 
-    // Copy full code
+    // ===================== Copy full code =====================
     const toast = document.getElementById("toast");
     function showToast(msg="Copied!"){
       toast.textContent = msg;
       toast.classList.add("show");
-      setTimeout(()=>toast.classList.remove("show"), 1200);
+      setTimeout(()=>toast.classList.remove("show"), 1300);
     }
 
     document.getElementById("copyFinal").addEventListener("click", async () => {
@@ -698,10 +799,13 @@ PASTE YOUR POEM HERE TOMORROW 💘
       }
     });
 
-    // ====== Wordle mini-game (solves HUBBY -> sets BBY) ======
+    // ===================== Real Wordle (HUBBY) =====================
     const WORD = "HUBBY";
-    let tries = 0;
     const maxTries = 5;
+    let tries = 0;
+    let solved = false;
+
+    const boardEl = document.getElementById("wordleBoard");
     const guessInput = document.getElementById("wordleGuess");
     const submitBtn = document.getElementById("wordleSubmit");
     const triesLabel = document.getElementById("wordleTries");
@@ -709,41 +813,98 @@ PASTE YOUR POEM HERE TOMORROW 💘
     const result = document.getElementById("wordleResult");
     const code3 = document.getElementById("c3");
 
+    // Build empty board
+    const tiles = [];
+    for(let r=0;r<maxTries;r++){
+      const row = document.createElement("div");
+      row.className = "wRow";
+      const rowTiles = [];
+      for(let c=0;c<5;c++){
+        const t = document.createElement("div");
+        t.className = "tile";
+        t.textContent = "";
+        row.appendChild(t);
+        rowTiles.push(t);
+      }
+      boardEl.appendChild(row);
+      tiles.push(rowTiles);
+    }
+
+    function evaluateGuess(guess, answer){
+      // returns array of "green"|"yellow"|"gray"
+      const res = Array(5).fill("gray");
+      const a = answer.split("");
+      const g = guess.split("");
+
+      // greens
+      for(let i=0;i<5;i++){
+        if(g[i] === a[i]){
+          res[i] = "green";
+          a[i] = null; // used
+          g[i] = null;
+        }
+      }
+      // yellows
+      for(let i=0;i<5;i++){
+        if(g[i] === null) continue;
+        const idx = a.indexOf(g[i]);
+        if(idx !== -1){
+          res[i] = "yellow";
+          a[idx] = null;
+        }
+      }
+      return res;
+    }
+
+    function renderRow(rowIndex, guess, colors){
+      for(let i=0;i<5;i++){
+        const t = tiles[rowIndex][i];
+        t.textContent = guess[i] || "";
+        t.classList.remove("green","yellow","gray","pop");
+        t.classList.add(colors[i] || "");
+        // tiny pop animation
+        requestAnimationFrame(()=>t.classList.add("pop"));
+        setTimeout(()=>t.classList.remove("pop"), 140);
+      }
+    }
+
+    function finishWordle(){
+      code3.value = "BBY";
+      recompute();
+      solved = true;
+      guessInput.disabled = true;
+      submitBtn.disabled = true;
+    }
+
     function setWordleHint(show){
       hintPop.style.display = show ? "block" : "none";
     }
 
-    function finishWordle(){
-      // last three letters of HUBBY => BBY
-      code3.value = "BBY";
-      recompute();
-    }
-
     submitBtn.addEventListener("click", () => {
-      const g = (guessInput.value || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0,5);
-      guessInput.value = g;
-      if(g.length !== 5) return;
+      if(solved) return;
+      const guess = (guessInput.value || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0,5);
+      guessInput.value = guess;
+      if(guess.length !== 5) return;
+
+      const colors = evaluateGuess(guess, WORD);
+      renderRow(tries, guess, colors);
 
       tries++;
       triesLabel.textContent = `${tries}/${maxTries} tries`;
 
-      if(g === WORD){
+      if(guess === WORD){
         result.textContent = "✅ Nice. Now take the last three letters.";
-        finishWordle();
-        guessInput.disabled = true;
-        submitBtn.disabled = true;
         setWordleHint(false);
+        finishWordle();
         return;
       }
 
-      // After 4 wrong tries, show the hint
       if(tries >= 4){
-        setWordleHint(true);
+        setWordleHint(true); // show your hint after 4 wrong attempts
       }
 
       if(tries >= maxTries){
-        result.textContent = "Last try used — read the hint and try again tomorrow 😉";
-        // don't lock them out completely; keep input active
+        result.textContent = "Out of tries — read the hint and you’ll get it.";
       } else {
         result.textContent = "Not quite — try again.";
       }
@@ -754,7 +915,160 @@ PASTE YOUR POEM HERE TOMORROW 💘
       if(e.key === "Enter") submitBtn.click();
     });
 
-    // Initial compute
+    // ===================== Confetti (no libs) =====================
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+    let confetti = [];
+    let confettiOn = false;
+
+    function resize(){
+      canvas.width = window.innerWidth * devicePixelRatio;
+      canvas.height = window.innerHeight * devicePixelRatio;
+      ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    function confettiBurst(){
+      const count = 220;
+      confetti = [];
+      for(let i=0;i<count;i++){
+        confetti.push({
+          x: Math.random()*window.innerWidth,
+          y: -20 - Math.random()*window.innerHeight*0.2,
+          vx: (Math.random()*2 - 1) * 3,
+          vy: 2 + Math.random()*4,
+          r: 4 + Math.random()*6,
+          a: 0.6 + Math.random()*0.4,
+          spin: (Math.random()*2 - 1) * 0.2,
+          rot: Math.random()*Math.PI*2,
+          life: 200 + Math.random()*120
+        });
+      }
+      confettiOn = true;
+      animateConfetti();
+    }
+
+    function animateConfetti(){
+      if(!confettiOn) return;
+      ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+
+      confetti.forEach(p=>{
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.spin;
+        p.vx *= 0.995;
+        p.vy *= 0.99;
+        p.life -= 1;
+
+        ctx.save();
+        ctx.globalAlpha = p.a;
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+
+        // draw a tiny heart-ish confetti shape (cute)
+        ctx.beginPath();
+        const s = p.r;
+        ctx.moveTo(0, s/2);
+        ctx.bezierCurveTo(0, 0, -s, 0, -s, s/2);
+        ctx.bezierCurveTo(-s, s, 0, s*1.2, 0, s*1.45);
+        ctx.bezierCurveTo(0, s*1.2, s, s, s, s/2);
+        ctx.bezierCurveTo(s, 0, 0, 0, 0, s/2);
+
+        // gradient-ish fill using current alpha + random tint
+        const t = (p.x + p.y) % 3;
+        ctx.fillStyle = t < 1 ? "rgba(255,59,141,.95)" : (t < 2 ? "rgba(255,95,160,.95)" : "rgba(122,92,255,.95)");
+        ctx.fill();
+        ctx.restore();
+      });
+
+      confetti = confetti.filter(p=>p.life > 0 && p.y < window.innerHeight + 40);
+
+      if(confetti.length){
+        requestAnimationFrame(animateConfetti);
+      } else {
+        confettiOn = false;
+        ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+      }
+    }
+
+    // ===================== Music (royalty-free vibe) =====================
+    // NOTE: Browsers block autoplay unless the user clicks.
+    // We generate a soft “piano-ish” tone sequence via WebAudio (no external file).
+    let audioCtx = null;
+    let musicOn = false;
+    let musicTimer = null;
+
+    function ensureAudio(){
+      if(!audioCtx){
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playNote(freq, when, dur, gain=0.10){
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type = "sine";
+      o.frequency.setValueAtTime(freq, when);
+      g.gain.setValueAtTime(0.0001, when);
+      g.gain.exponentialRampToValueAtTime(gain, when + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, when + dur);
+      o.connect(g);
+      g.connect(audioCtx.destination);
+      o.start(when);
+      o.stop(when + dur + 0.02);
+    }
+
+    // simple romantic arpeggio loop (very gentle)
+    function startMusic(){
+      ensureAudio();
+      if(audioCtx.state === "suspended") audioCtx.resume();
+      musicOn = true;
+      document.getElementById("musicBtn").textContent = "⏸ Pause music";
+
+      const base = 220; // A3-ish
+      const scale = [0, 3, 7, 10, 12, 15, 19]; // minor-ish (romantic)
+      let step = 0;
+
+      musicTimer = setInterval(()=>{
+        if(!musicOn) return;
+        const now = audioCtx.currentTime;
+        // chord tones
+        const s1 = scale[step % scale.length];
+        const s2 = scale[(step+2) % scale.length];
+        const s3 = scale[(step+4) % scale.length];
+
+        playNote(base * Math.pow(2, s1/12), now + 0.00, 0.55, 0.06);
+        playNote(base * Math.pow(2, s2/12), now + 0.08, 0.55, 0.05);
+        playNote(base * Math.pow(2, s3/12), now + 0.16, 0.65, 0.045);
+
+        // occasional higher sparkle
+        if(step % 6 === 0){
+          playNote(base * 2 * Math.pow(2, scale[(step+1)%scale.length]/12), now + 0.20, 0.35, 0.03);
+        }
+
+        step++;
+      }, 650);
+    }
+
+    function stopMusic(){
+      musicOn = false;
+      document.getElementById("musicBtn").textContent = "▶︎ Play music";
+      if(musicTimer) clearInterval(musicTimer);
+      musicTimer = null;
+    }
+
+    document.getElementById("musicBtn").addEventListener("click", ()=>{
+      if(!musicOn){
+        startMusic();
+        showToast("Music on 🎶");
+      } else {
+        stopMusic();
+        showToast("Music paused");
+      }
+    });
+
+    // initial compute
     recompute();
   </script>
 </body>
